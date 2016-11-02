@@ -40,7 +40,10 @@ $(function(){
 		var index=$(this).closest('li').index();
 		todos.splice(index,1);
 		localStorage.todos=JSON.stringify(todos);
-		$(this).closest('li').remove();
+//		$(this).closest('li').remove();
+		$(ul[0]).find("li").eq(index).remove();
+		$(ul[1]).find("li").eq(index).remove();
+//		$(this).closest('li').fadeOut(1000)
 //		$(this).closest('li').addClass('ani-delete');
 //		$(this).closest('li').delay(800).queue(function(){
 //			$(this).dequeue();
@@ -53,8 +56,19 @@ $(function(){
 		var index=$(this).closest('li').index();
 		$(this).closest('li').addClass('del2');
 		todos[$(this).closest('li').index()].lei=true;
-			localStorage.todos=JSON.stringify(todos);
+		localStorage.todos=JSON.stringify(todos);
+		$(ul[0]).find("li").eq(index).addClass('del2');
+		$(ul[1]).find("li").eq(index).addClass('del2')
 	});
+
+//	搜索按钮的失去焦点
+	$("#text1").blur(function(){
+		$(this).val("请输入关键词...")
+	})
+	$("#text1").focus(function(){
+		$(this).val("")
+	})	
+
 
 //	本地存储
 	input.blur(function(){
@@ -92,71 +106,110 @@ $(function(){
 
 	
 //	
-//	var clearall=$('.clearall');
-//	clearall.on('touchend',function(){
-//		ul.find('.done').each(function(i){
-//			$(this).delay(i*80).queue(function(){
-//				$(this).addClass('ani-delete').dequeue();
-//			});
-//		});
-//		
-//		var d=800+ul.find('.done').length*80;
-//		ul.find('.done').delay(d).queue(function(){
-//			ul.find('.done').remove();
-//			$(this).dequeue();
-//		});
-//		
-//		
-//		
-//		var newarr=[];
-//		for(var i=0;i<todos.length;i++){
-//			if (todos[i].state===0){
-//				newarr.push(todos[i]);
-//			}
-//		}
-//		todos=newarr;
-//		localStorage.todos=JSON.stringify(todos)
-//	})
-//	
+	var clearall=$('.clearall');
+	clearall.on('touchend',function(){
+		ul.find('.done').each(function(i){
+			$(this).delay(i*80).queue(function(){
+				$(this).addClass('ani-delete').dequeue();
+			});
+		});
+		
+		var d=800+ul.find('.done').length*80;
+		ul.find('.done').delay(d).queue(function(){
+			ul.find('.done').remove();
+			$(this).dequeue();
+		});
+		
+		
+		
+		var newarr=[];
+		for(var i=0;i<todos.length;i++){
+			if (todos[i].state===0){
+				newarr.push(todos[i]);
+			}
+		}
+		todos=newarr;
+		localStorage.todos=JSON.stringify(todos)
+	})
+	
 //	
 	var divs=$(".footer div");
-//	divs.on("touchend",function(){
-//		divs.removeClass('active');
-//		$(this).addClass('active');
-//		ul.find('li').show();
-//		var role=$(this).attr('data-role');
-//		if(role==='re'){
-//			ul.find('.del2').hide();
-//		}else if(role==='com'){
-//			ul.find('li').hide()
-//			ul.find('.del2').show();
-//		}
+	divs.on("touchend",function(){
+		divs.removeClass('active');
+		$(this).addClass('active');
+		ul.find('li').show();
+		var role=$(this).attr('data-role');
+		if(role==='re'){
+			ul.find('.del2').hide();
+		}else if(role==='com'){
+			ul.find('li').hide()
+			ul.find('.del2').show();
+		}
+	})
+//	var all=$(".footer .all")
+//	var complay=$(".footer .complay");
+//	var remind=$(".footer .remind");
+//	
+//	
+//	all.on("touchend",function(){
+//		divs.removeClass("active")
+//		$(this).addClass("active")
+//		ul.find("li").show()
 //	})
-	var all=$(".footer .all")
-	var complay=$(".footer .complay");
-	var remind=$(".footer .remind");
+//	complay.on("touchend",function(){
+//		divs.removeClass("active")
+//		$(this).addClass("active")
+//		ul.find("li").hide()
+//		ul.find("li.del2").show();
+//	})
+//	remind.on("touchend",function(){
+//		divs.removeClass("active")
+//		$(this).addClass("active")
+//		ul.find("li").hide()
+//		ul.find("li:not(.del2)").show();
+//	})
 	
+//	var n;
+//	for(var i=100;i<1001;i++){
+//		if(n%10)
+//	}
+//	
+//	
 	
-	all.on("touchend",function(){
-		divs.removeClass("active")
-		$(this).addClass("active")
-		ul.find("li").show()
-	})
-	complay.on("touchend",function(){
-		divs.removeClass("active")
-		$(this).addClass("active")
-		ul.find("li").hide()
-		ul.find("li.del2").show();
-	})
-	remind.on("touchend",function(){
-		divs.removeClass("active")
-		$(this).addClass("active")
-		ul.find("li").hide()
-		ul.find("li:not(.del2)").show();
-	})
-	
-	
-	
+
+//	n的n次幂
+//	function mi(n){	
+//		var sub=1;
+//		for(var i=0;i<n;i++){
+//		   	sub*=n;
+//		   }	
+//	  return sub;    
+//	}
+//console.log(mi(2))
+
+// function min(n){
+// 	if(n==0){
+// 		return 1;
+// 	}else{
+// 		return n%mi(n-1)*min(n-1)
+// 	}
+// }
+// console.log(min(6))
+
+//查询功能
+//$("#text1").on('keyup',function(){
+//		var key = $(this).val().trim();
+//		ul.empty();
+//		todos=JSON.parse(localStorage.todo_data)
+//		$(todos).each(function(i,v){
+//			if(v.name.indexOf(key)!==-1){
+//     			if(v.name){
+//     			$("<li><img class='img-san' src='img/shan.png'/><img class='guding' src='img/65.png/'><div class='content'>"+v.name+"</div><div class='del'></div></li>").appendTo(ul);
+//     			}			
+//     		}
+//		})		
+//	})
+   
 	
 	
 	
