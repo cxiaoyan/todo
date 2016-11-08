@@ -8,13 +8,27 @@ $(function(){
 	var del=$('.del')
 	
 //	切换页面
+//	bianji.on("touchend",function(){
+//		$(".lis").css("display","none")
+//		$(".lis2").css("display","block")
+//	})
+//	$(".lis-img").on("touchend",function(){
+//		$(".lis").css("display","block")
+//		$(".lis2").css("display","none")
+//	})
+
+
 	bianji.on("touchend",function(){
-		$(".lis").css("display","none")
-		$(".lis2").css("display","block")
+		$(".lis").addClass("lis-class");
+		$(".lis2").addClass("lis-class");
+		$(".lis").removeClass("lis2-class");
+		$(".lis2").removeClass("lis2-class");
 	})
 	$(".lis-img").on("touchend",function(){
-		$(".lis").css("display","block")
-		$(".lis2").css("display","none")
+		$(".lis").removeClass("lis-class");
+		$(".lis2").removeClass("lis-class");
+		$(".lis").addClass("lis2-class");
+		$(".lis2").addClass("lis2-class");
 	})
 	
 //	删除提示
@@ -40,14 +54,12 @@ $(function(){
 		var index=$(this).closest('li').index();
 		todos.splice(index,1);
 		localStorage.todos=JSON.stringify(todos);
-//		$(this).closest('li').remove();
-		$(ul[0]).find("li").eq(index).remove();
-		$(ul[1]).find("li").eq(index).remove();
-//		$(this).closest('li').fadeOut(1000)
-//		$(this).closest('li').addClass('ani-delete');
-//		$(this).closest('li').delay(800).queue(function(){
-//			$(this).dequeue();
-//		});
+		ul.find("li").eq(index).find(".guding").css("display","none");
+		ul.find("li").eq(index).fadeOut(800)
+		ul.find("li").eq(index).addClass('ani-delete');
+		ul.find("li").eq(index).delay(800).queue(function(){
+			$(this).dequeue();
+		});
 	});
 
 
@@ -57,8 +69,7 @@ $(function(){
 		$(this).closest('li').addClass('del2');
 		todos[$(this).closest('li').index()].lei=true;
 		localStorage.todos=JSON.stringify(todos);
-		$(ul[0]).find("li").eq(index).addClass('del2');
-		$(ul[1]).find("li").eq(index).addClass('del2')
+		ul.find("li").eq(index).addClass('del2');
 	});
 
 //	搜索按钮的失去焦点
@@ -197,18 +208,18 @@ $(function(){
 // console.log(min(6))
 
 //查询功能
-//$("#text1").on('keyup',function(){
-//		var key = $(this).val().trim();
-//		ul.empty();
-//		todos=JSON.parse(localStorage.todo_data)
-//		$(todos).each(function(i,v){
-//			if(v.name.indexOf(key)!==-1){
-//     			if(v.name){
-//     			$("<li><img class='img-san' src='img/shan.png'/><img class='guding' src='img/65.png/'><div class='content'>"+v.name+"</div><div class='del'></div></li>").appendTo(ul);
-//     			}			
-//     		}
-//		})		
-//	})
+$("#text1").on('keyup',function(){
+		var key = $(this).val().trim();
+		ul.empty();
+		todos=JSON.parse(localStorage.todos)
+		$(todos).each(function(i,v){
+			if(v.name.indexOf(key)!==-1){
+       			if(v.name){
+       			$("<li class="+c+"><img class='img-san' src='img/shan.png'/><img class='guding' src='img/65.png'><div class='content'>"+todos[i].name+"</div><div class='del'></div></li>").appendTo(ul)
+       			}			
+       		}
+		})		
+	})
    
 	
 	

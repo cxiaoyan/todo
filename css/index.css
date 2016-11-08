@@ -29,10 +29,9 @@ html {
 
 body {
   font-size: 15px;
-  /*background: gray;*/
   font-family: '微软雅黑';
   -webkit-user-select: none;
-  /*background-position: center;*/
+ 	overflow: hidden;
 }
 .lis{
 	position: absolute;
@@ -41,22 +40,40 @@ body {
 	width: 100%;
 	height: 100%;
 	background: url(../img/1.jpg) no-repeat;
-  background-size: 100% ;
-  /*transform 0.8s ease*/
+  background-size: 100%  100%;
+}
+.lis-class{
+	animation: yidong 0.5s ease-in-out forwards;
 }
 .lis2{
-	display: none;
 	background: #f0d8b3;
-	/*left: 100%;*/
+	left: 100%;
 }
-/*@keyframes yidong{
+.lis2-class{
+	animation: yidongf 0.5s ease-in-out forwards;
+}
+@keyframes yidong{
 	0%{
 		transform: translate3d(0,0,0);
 	}
 	100%{
 		transform: translate3d(-100%,0,0);
 	}
-}*/
+}
+@media screen and (min-width: 120px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@keyframes yidongf{
+	0%{
+		transform: translate3d(-100%,0,0);
+	}
+	100%{
+		transform: translate3d(0,0,0);
+	}
+}
 @media screen and (min-width: 120px) {
   html {
     font-size: 16px;
@@ -161,13 +178,11 @@ select option{
 	background: transparent;
 	width: 100%;
 	height: 0.7rem;
-	border-color: #ba926a;
-	border-radius: 1rem;
+	border: 0;
 	color: #ab8a72;
-	font-size: 0.3rem;
+	font-size: 0.4rem;
 	padding-left: 0.8rem;
 	outline: none;
-	background: #fff;
 }
 #text1{
 	background: transparent;
@@ -200,7 +215,7 @@ select option{
   border-radius: 0.5rem;
   opacity: 0.6;
   left: 0;
-  transition: 0.6s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 .todolist .del2 .content{
 	color: #ccc;
@@ -253,6 +268,9 @@ select option{
   line-height: 1rem;
   
   text-align: center;
+}
+.ani-delete{
+	transform: translateX(110%);
 }
 .footer div i{
 	display: inline-block;
