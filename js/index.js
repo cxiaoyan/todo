@@ -54,11 +54,10 @@ $(function(){
 		var index=$(this).closest('li').index();
 		todos.splice(index,1);
 		localStorage.todos=JSON.stringify(todos);
-		ul.find("li").eq(index).find(".guding").css("display","none");
-		ul.find("li").eq(index).fadeOut(800)
+		ul.find("li").eq(index).find(".guding").remove();
 		ul.find("li").eq(index).addClass('ani-delete');
-		ul.find("li").eq(index).delay(800).queue(function(){
-			$(this).dequeue();
+		ul.find("li").eq(index).delay(500).queue(function(){
+			$(this).remove().dequeue();
 		});
 	});
 
@@ -67,7 +66,7 @@ $(function(){
 	ul.on('touchend','.del',function(){
 		var index=$(this).closest('li').index();
 		$(this).closest('li').addClass('del2');
-		todos[$(this).closest('li').index()].lei=true;
+		todos[index].lei=true;
 		localStorage.todos=JSON.stringify(todos);
 		ul.find("li").eq(index).addClass('del2');
 	});
